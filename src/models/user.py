@@ -10,5 +10,6 @@ class User(db.Model):
     id: Mapped[int] =  mapped_column(Integer, primary_key=True, autoincrement=True)
     username: Mapped[str] = mapped_column(String(256), nullable=False, unique=True)
     password: Mapped[str] =  mapped_column(String(256), nullable=False)
+    email: Mapped[str] = mapped_column(String(256), nullable=False)
 
 

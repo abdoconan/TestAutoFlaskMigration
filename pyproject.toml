@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "testautoflaskmigration"
+version = "0.1.0"
+description = ""
+authors = ["abdoconan <abdo1258conan@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^3.0.3"
+flask-migrate = "^4.0.7"
+flask-sqlalchemy = "^3.1.1"
+psycopg2-binary = "^2.9.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

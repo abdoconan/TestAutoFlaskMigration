@@ -22,8 +22,9 @@ jobs:
               run: |
                 python -m pip install --upgrade pip
                 pip install Flask Flask-Migrate
-                - name: Merge migrations
-                run: |
+                
+            - name: Merge migrations
+              run: |
                   flask db merge heads -m "Merge migrations"
                   git config --global user.name 'github-actions[bot]'
                   git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'

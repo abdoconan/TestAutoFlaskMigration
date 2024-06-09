@@ -14,6 +14,8 @@ def create_app() -> Flask:
     app =  Flask(__name__)
     app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:P%40ssw0rd@localhost:5432/TestMigration'
 
+    print("another changes")
+
     db.init_app(app)
     migration = Migrate(app, db)
 

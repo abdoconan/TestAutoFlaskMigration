@@ -23,11 +23,22 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install Flask Flask-Migrate psycopg2-binary
 
-            - name: Merge migrations
+            - name: Check for multiple heads
+              id: check_heads
               run: |
-                  flask db merge heads -m "Merge migrations"
-                  git config --global user.name 'github-actions[bot]'
-                  git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-                  git add migrations/versions/
-                  git commit -m 'Auto-merge migrations'
-                  git push origin master 
+                flask db heads -v | grep "head" | wc -l > head_count.txt
+                head_count=$(cat head_count.txt)
+                echo "::set-output name=heads::$head_count"
+
+            - name: Delete head count file
+              run: rm head_count.txt
+
+            - name: Merge migrations if multiple heads
+              if: steps.check_heads.outputs.heads > 1
+              run: |
+                flask db merge heads -m "Merge migrations"
+                git config --global user.name 'github-actions[bot]'
+                git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+                git add migrations/versions/
+                git commit -m 'Auto-merge migrations'
+                git push origin master

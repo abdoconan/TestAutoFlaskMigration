@@ -1,9 +1,11 @@
 
-from ..app import app
+from src import create_app
 from flask_migrate import current
 
 
 if __name__ == "__main":
+
+    app = create_app()
     with open('changed_files.txt', 'r') as file:
         changed_files = file.readlines()
 

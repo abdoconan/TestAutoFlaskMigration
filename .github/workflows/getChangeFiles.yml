@@ -26,6 +26,11 @@ jobs:
         git diff --name-only $PREV_SHA $CURRENT_SHA > changed_files.txt
         cat changed_files.txt
 
+    - name: Output changed files
+      run: |
+          echo "Changed files:"
+          cat changed_files.txt
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:

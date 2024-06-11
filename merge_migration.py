@@ -14,6 +14,5 @@ if __name__ == "__main":
         print(changed_file.strip())
 
     with app.app_context():
-        current_revision = current(directory="migrations")
-        print()
+        current_revision = current(directory="migrations", verbose=True)
 

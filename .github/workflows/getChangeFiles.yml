@@ -1,0 +1,30 @@
+name: Get added files
+
+on: 
+    push:
+      branches:
+        - master  # Change to your branch name
+
+jobs:
+    list-changed-files:
+      runs-on: ubuntu-latest
+  
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+  
+      - name: Get list of changed files
+        id: changed-files
+        run: |
+          # Fetch the previous commit SHA
+          PREV_SHA=$(git rev-parse HEAD^1)
+          # Get the current commit SHA
+          CURRENT_SHA=$(git rev-parse HEAD)
+          # List files changed in the push
+          git diff --name-only $PREV_SHA $CURRENT_SHA > changed_files.txt
+          cat changed_files.txt
+  
+      - name: Output changed files
+        run: |
+          echo "Changed files:"
+          cat changed_files.txt

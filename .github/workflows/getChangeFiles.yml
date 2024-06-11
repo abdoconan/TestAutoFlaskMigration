@@ -37,4 +37,4 @@ jobs:
         pip install Flask Flask-Migrate psycopg2-binary
 
     - name: Run Python script
-      run: python src/scripts/merge_migration.py
+      run: python merge_migration.py

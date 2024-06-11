@@ -13,5 +13,6 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(256), nullable=False)
     mobile: Mapped[str] =  mapped_column(String(256))
     national_id: Mapped[str] = mapped_column(String(256))
+    another_column: Mapped[int] = mapped_column(Integer)
 
 

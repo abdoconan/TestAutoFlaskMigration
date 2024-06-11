@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0  # Fetch all history for all branches and tags
 
@@ -26,7 +26,15 @@ jobs:
         git diff --name-only $PREV_SHA $CURRENT_SHA > changed_files.txt
         cat changed_files.txt
 
-    - name: Output changed files
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
       run: |
-        echo "Changed files:"
-        cat changed_files.txt
+        python -m pip install --upgrade pip
+        pip install Flask Flask-Migrate psycopg2-binary
+
+    - name: Run Python script
+      run: python scripts/merge_migration.py

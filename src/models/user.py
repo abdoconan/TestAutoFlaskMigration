@@ -14,6 +14,7 @@ class User(db.Model):
     mobile: Mapped[str] =  mapped_column(String(256))
     national_id: Mapped[str] = mapped_column(String(256))
     another_column: Mapped[int] = mapped_column(Integer)
+    new_script_column: Mapped[int] = mapped_column(Integer)
 
     new_column_main: Mapped[int] = mapped_column(Integer)
 

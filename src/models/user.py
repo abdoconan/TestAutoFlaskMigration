@@ -12,7 +12,7 @@ class User(db.Model):
     password: Mapped[str] =  mapped_column(String(256), nullable=False)
     email: Mapped[str] = mapped_column(String(256), nullable=False)
     mobile: Mapped[str] =  mapped_column(String(256))
-    # national_id: Mapped[str] = mapped_column(String(256))
+    national_id: Mapped[str] = mapped_column(String(256))
     # another_column: Mapped[int] = mapped_column(Integer)
     # new_script_column: Mapped[int] = mapped_column(Integer)
 

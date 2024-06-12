@@ -31,6 +31,10 @@ jobs:
           echo "Changed files:"
           cat changed_files.txt
 
+    - name: show heads of the database
+      run: |
+          flask db heads
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:

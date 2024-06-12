@@ -1,4 +1,5 @@
 from typing import List, Tuple, Dict, Optional
+from collections.abc import Iterable
 import os
 import re
 
@@ -78,9 +79,9 @@ def get_earliest_revision(revision_ids: Optional[_RevIdType]) -> Optional[str]:
     if isinstance(revision_ids, str):
         return revision_ids  # Single revision ID provided
 
-    if isinstance(revision_ids, list):
+    if isinstance(revision_ids, Iterable):
         if len(revision_ids) > 0:
-            return min(revision_ids)  # Return the earliest revision ID from the list
+            return revision_ids[0]  # Return the earliest revision ID from the list
         else:
             return None  # Empty list provided
 
@@ -108,8 +109,9 @@ def get_earliest_revision_downverision(merged_head: Script
     for path in valid_paths:
         if earliest_revision in path:
             ## this means that there is multiple revisions in the same merge and need to get the first one.
-            revision_script  = script.get_revisions(earliest_revision)
-            revision_id = get_earliest_revision_downverision(revision_script, valid_paths, script)
+            revision_script  = script.get_revision(earliest_revision)
+            print(f"revision_script: {revision_script}")
+            _, revision_id = get_earliest_revision_downverision(revision_script, valid_paths, script)
     path = next(filter(lambda path: revision_id in path, valid_paths))
     return path, merged_head.revision
     
@@ -159,6 +161,7 @@ def main():
         path_directory = os.getcwd()
         revision_id: str =  current_head.revision
         for merged_head in merged_heads:
+            print(f"merged_head: {merged_head}")
             earlies_file_path, rev_id =  get_earliest_revision_downverision(merged_head, valid_paths, script)
             full_path_to_file =  os.path.join(path_directory, os.path.normpath(earlies_file_path))
             print(f"file_path: {full_path_to_file}")

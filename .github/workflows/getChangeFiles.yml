@@ -31,9 +31,7 @@ jobs:
           echo "Changed files:"
           cat changed_files.txt
 
-    - name: show heads of the database
-      run: |
-          flask db heads
+    
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -44,6 +42,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install Flask Flask-Migrate psycopg2-binary
+
+    - name: show heads of the database
+      run: |
+          flask db heads
 
     - name: Run Python script
       run: python merge_migration.py
